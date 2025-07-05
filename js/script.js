@@ -5,7 +5,7 @@ const button = document.querySelector('button');
 const gallery = document.getElementById('gallery');
 
 // NASA API configuration
-const API_KEY = 'BLjlIK2h7TVo92rK3r0w8qaqIn3UPzV4DtAC8SMh';
+const API_KEY = import.meta.env?.VITE_NASA_API_KEY;
 const BASE_URL = 'https://api.nasa.gov/planetary/apod';
 
 // Call the setupDateInputs function from dateRange.js
