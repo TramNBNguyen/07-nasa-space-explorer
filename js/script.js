@@ -5,8 +5,8 @@ const button = document.querySelector('button');
 const gallery = document.getElementById('gallery');
 
 // NASA API configuration
-const API_KEY = import.meta.env?.VITE_NASA_API_KEY;
-const BASE_URL = 'https://api.nasa.gov/planetary/apod';
+const API_KEY = window.CONFIG?.NASA_API_KEY || 'DEMO_KEY';
+const BASE_URL = window.CONFIG?.BASE_URL || 'https://api.nasa.gov/planetary/apod';
 
 // Call the setupDateInputs function from dateRange.js
 setupDateInputs(startInput, endInput);
@@ -27,6 +27,12 @@ const spaceFacts = [
 
 // Display random space fact
 function displayRandomSpaceFact() {
+  // Remove existing fact if it exists
+  const existingFact = document.querySelector('.space-fact');
+  if (existingFact) {
+    existingFact.remove();
+  }
+  
   const factIndex = Math.floor(Math.random() * spaceFacts.length);
   const fact = spaceFacts[factIndex];
   
@@ -216,6 +222,9 @@ async function getSpaceImages() {
   }
   
   showLoading();
+  
+  // Display a new random space fact each time images are fetched
+  displayRandomSpaceFact();
   
   try {
     const apodData = await fetchAPODData(startDate, endDate);
